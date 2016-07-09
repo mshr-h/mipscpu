@@ -47,7 +47,7 @@ func (i *Instruction) address() uint32 {
 }
 
 func main() {
-	var binfile = "a.out"
+	var binfile = "sample.o"
 	if len(os.Args) >= 2 {
 		binfile = os.Args[1]
 	}
