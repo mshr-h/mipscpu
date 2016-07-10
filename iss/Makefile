@@ -5,4 +5,4 @@ test:
 	go test
 
 clean:
-	rm -f mymips
+	rm -f iss
