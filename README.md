@@ -1,4 +1,4 @@
-# MIPS CPU implementation and it's Instruction Set Simulator
+# MIPS CPU implementation and its Instruction Set Simulator
 
 ## CPU architecture
 
