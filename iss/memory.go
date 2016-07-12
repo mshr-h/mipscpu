@@ -23,6 +23,19 @@ func (m *Memory) ReadByte(address addr) byte {
 	return 0xA5
 }
 
+func (m *Memory) ReadWord(address addr) uint32 {
+	if address%4 != 0 {
+		panic("unaligned address")
+	}
+
+	d1 := uint32(m.ReadByte(address))
+	d2 := uint32(m.ReadByte(address + 1))
+	d3 := uint32(m.ReadByte(address + 2))
+	d4 := uint32(m.ReadByte(address + 3))
+
+	return (d1 << 24) | (d2 << 16) | (d3 << 8) | d4
+}
+
 func (m *Memory) WriteByte(address addr, data byte) {
 	if mb := findMemoryBlock(m, address); mb != nil {
 		mb.WriteByte(address-mb.baseaddress, data)
@@ -32,6 +45,17 @@ func (m *Memory) WriteByte(address addr, data byte) {
 	new := NewMemoryBlock(address & BASE_MASK)
 	new.WriteByte(address-new.baseaddress, data)
 	*m = append(*m, new)
+}
+
+func (m *Memory) WriteWord(address addr, data uint32) {
+	if address%4 != 0 {
+		panic("unaligned address")
+	}
+
+	m.WriteByte(address, uint8(data>>24))
+	m.WriteByte(address+1, uint8((data>>16)&0xFF))
+	m.WriteByte(address+2, uint8((data>>8)&0xFF))
+	m.WriteByte(address+3, uint8(data&0xFF))
 }
 
 func NewMemoryBlock(baseaddress addr) *MemoryBlock {
