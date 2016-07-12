@@ -1,4 +1,5 @@
 # MIPS CPU implementation and its Instruction Set Simulator
+[![Build Status](https://travis-ci.org/mshr-h/mipscpu.svg?branch=master)](https://travis-ci.org/mshr-h/mipscpu)
 
 ## CPU architecture
 
