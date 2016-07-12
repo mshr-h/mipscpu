@@ -16,36 +16,6 @@ const (
 	INST_TYPE_J
 )
 
-type Instruction uint32
-
-func (i *Instruction) opcode() uint8 {
-	return 0
-}
-
-func (i *Instruction) rs() uint8 {
-	return 0
-}
-
-func (i *Instruction) rd() uint8 {
-	return 0
-}
-
-func (i *Instruction) shift() uint8 {
-	return 0
-}
-
-func (i *Instruction) function() uint8 {
-	return 0
-}
-
-func (i *Instruction) immediate() uint16 {
-	return 0
-}
-
-func (i *Instruction) address() uint32 {
-	return 0
-}
-
 func main() {
 	var binfile = "sample.o"
 	if len(os.Args) >= 2 {
@@ -58,7 +28,10 @@ func main() {
 	}
 
 	var cpu = NewCpu(bin)
-	for i := 0; i < 0x1F; i++ {
-		fmt.Printf("%02x\n", cpu.instMemory.ReadByte(addr(i)))
+	for i := 0; i < 0xA; i++ {
+		for j := 0; j < 0x10; j += 4 {
+			var i = Instruction(cpu.instMemory.ReadWord(addr(0x10*i + j)))
+			fmt.Printf("%08x %02x %2d %2d %2d\n", i, i.opcode(), i.rd(), i.rt(), i.rd())
+		}
 	}
 }
