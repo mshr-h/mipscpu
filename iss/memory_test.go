@@ -8,16 +8,28 @@ func TestMemory(t *testing.T) {
 
 	expect = byte(103)
 	m.WriteByte(0, expect)
-	var res = m.ReadByte(0)
-	if res != expect {
+	if res := m.ReadByte(0); res != expect {
 		t.Fatalf("should be %v but %v", expect, res)
 	}
 
 	expect = byte(200)
 	m.WriteByte(500, expect)
-	res = m.ReadByte(500)
-	if res != expect {
+	if res := m.ReadByte(500); res != expect {
 		t.Fatalf("should be %v but %v", expect, res)
+	}
+
+	var word uint32
+
+	word = uint32(0xFF00FF00)
+	m.WriteWord(0, word)
+	if res := m.ReadWord(0); res != word {
+		t.Fatalf("should be %v but %v", word, res)
+	}
+
+	word = uint32(0x1234ABCD)
+	m.WriteWord(1024, word)
+	if res := m.ReadWord(1024); res != word {
+		t.Fatalf("should be %v but %v", word, res)
 	}
 }
 
@@ -27,15 +39,13 @@ func TestMemoryBlock(t *testing.T) {
 
 	expect = byte(103)
 	mb.WriteByte(0, expect)
-	var d = mb.ReadByte(0)
-	if d != expect {
-		t.Fatalf("should be %v but %v:", expect, d)
+	if res := mb.ReadByte(0); res != expect {
+		t.Fatalf("should be %v but %v:", expect, res)
 	}
 
 	expect = 11
 	mb.WriteByte(255, expect)
-	d = mb.ReadByte(255)
-	if d != expect {
-		t.Fatalf("should be %v but %v:", expect, d)
+	if res := mb.ReadByte(255); res != expect {
+		t.Fatalf("should be %v but %v:", expect, res)
 	}
 }
