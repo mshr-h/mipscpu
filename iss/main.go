@@ -17,7 +17,7 @@ const (
 )
 
 func main() {
-	var binfile = "sample.o"
+	var binfile = "fibonacci.o"
 	if len(os.Args) >= 2 {
 		binfile = os.Args[1]
 	}
