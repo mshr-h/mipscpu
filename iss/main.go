@@ -7,7 +7,6 @@ import (
 )
 
 type addr uint16
-type data uint32
 
 const (
 	BASE_MASK = addr(0x7F00)

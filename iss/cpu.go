@@ -101,8 +101,6 @@ type Cpu struct {
 	instTable      *map[string]InstructionFormat
 }
 
-type RegFile [32]data
-
 func NewCpu(bin []byte) *Cpu {
 	var cpu = Cpu{}
 	var rf RegFile
